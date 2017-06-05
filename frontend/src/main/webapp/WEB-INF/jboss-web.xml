@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<jboss-web>
+    <!-- TODO Fix root -->
+    <context-root>/my_news</context-root>
+</jboss-web>
