@@ -1,4 +1,4 @@
-package no.odeand.enterprise.exam.backend.util;
+package no.odeand.enterprise.exam.backend.util.util;
 // Created by Andreas on 03.06.2017.
 // TODO Fix content
 
