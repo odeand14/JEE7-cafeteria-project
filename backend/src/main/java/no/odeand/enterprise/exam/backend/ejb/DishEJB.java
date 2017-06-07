@@ -2,25 +2,50 @@ package no.odeand.enterprise.exam.backend.ejb;
 
 import no.odeand.enterprise.exam.backend.entity.Dish;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 // Created by Andreas Ødegaard on 07.06.2017.
+
+@Stateless
 public class DishEJB {
 
+    @PersistenceContext
+    private EntityManager em;
 
-    public long createDish() {
 
-        //Create a dish
 
-        return 0;
+    public long createDish(@NotNull String name, @NotNull String description) {
+
+        //Create a dish TODO Make sure no SQL injection!
+        Dish dish = new Dish();
+        dish.setName(name);
+        dish.setDescription(description);
+        em.persist(dish);
+
+        return dish.getId();
     }
 
 
     public List<Dish> getAllDishes() {
 
-        //Get all existing dishes
+        Query query = em.createNativeQuery(
+                "select * from Dish p ", Dish.class);
 
-        return null;
+        return query.getResultList();
     }
 
+    public Dish getDish(long id) {
+
+        TypedQuery<Dish> query = em.createQuery(
+                "select distinct d from Dish d WHERE d.id=?1", Dish.class);
+        query.setParameter(1, id);
+
+        return query.getSingleResult();
+    }
 }
