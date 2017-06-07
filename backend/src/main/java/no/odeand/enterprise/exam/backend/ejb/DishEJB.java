@@ -8,19 +8,18 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 // Created by Andreas Ødegaard on 07.06.2017.
 
 @Stateless
-public class DishEJB {
+public class DishEJB implements Serializable {
 
     @PersistenceContext
     private EntityManager em;
 
-
-
-    public long createDish(@NotNull String name, @NotNull String description) {
+    public Long createDish(@NotNull String name, @NotNull String description) {
 
         //Create a dish TODO Make sure no SQL injection!
         Dish dish = new Dish();
@@ -40,7 +39,7 @@ public class DishEJB {
         return query.getResultList();
     }
 
-    public Dish getDish(long id) {
+    public Dish getDish(Long id) {
 
         TypedQuery<Dish> query = em.createQuery(
                 "select distinct d from Dish d WHERE d.id=?1", Dish.class);

@@ -3,10 +3,12 @@ package no.odeand.enterprise.exam.backend.entity;
 // Created by Andreas Ødegaard on 07.06.2017.
 
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,19 +19,17 @@ public class Menu {
     private Long id;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
     @Column(unique = true)
-    private Date date;
+    private LocalDate date;
 
     //TODO reverse owning?
 
-    @NotNull
-    @ManyToMany(mappedBy = "isInMenus")
+
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "isInMenus")
     private List<Dish> dishesInMenu;
 
-    public Menu() {
-        dishesInMenu = new ArrayList<>();
-    }
+    public Menu() {}
 
     public Long getId() {
         return id;
@@ -39,15 +39,18 @@ public class Menu {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
     public List<Dish> getDishesInMenu() {
+        if (dishesInMenu == null) {
+            dishesInMenu = new ArrayList<>();
+        }
         return dishesInMenu;
     }
 

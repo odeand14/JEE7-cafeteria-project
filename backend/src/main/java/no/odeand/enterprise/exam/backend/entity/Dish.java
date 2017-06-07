@@ -3,36 +3,33 @@ package no.odeand.enterprise.exam.backend.entity;
 // Created by Andreas Ødegaard on 07.06.2017.
 
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Dish {
+public class Dish implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @NotBlank
-    @Size(min = 1, max = 1024)
+    @NotEmpty
+    @Size(min = 1, max = 32)
     private String name;
 
-    @NotBlank
+    @NotEmpty
     @Size(min = 1, max = 1024)
     private String description;
 
     //TODO reverse owning?
 
-    @ManyToMany
-    @JoinTable(name = "jnd_dish_menu",
-            joinColumns = @JoinColumn(name = "dish_fk"),
-            inverseJoinColumns = @JoinColumn(name = "menu_fk"))
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Menu> isInMenus;
-
-    public Dish() { }
 
     public Long getId() {
         return id;
@@ -59,6 +56,9 @@ public class Dish {
     }
 
     public List<Menu> getIsInMenus() {
+        if (isInMenus == null) {
+            return new ArrayList<>();
+        }
         return isInMenus;
     }
 
