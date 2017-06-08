@@ -65,8 +65,19 @@ public class MenuEJBTest extends EJBTestBase{
 
         assertTrue(menuEJB.getCurrentMenu().getDishesInMenu().size() == 3);
 
-        assertEquals(menuEJB.getMenu(idNow).getId(), menuEJB.getCurrentMenu().getId());
+        assertEquals(menuEJB.getCurrentMenu().getId(), menuEJB.getMenu(idNow).getId());
 
+        deleterEJB.deleteEntityById(Menu.class, idNow);
+
+        assertEquals(menuEJB.getCurrentMenu().getId(), idAfter);
+
+        deleterEJB.deleteEntityById(Menu.class, idAfter);
+
+        assertEquals(menuEJB.getCurrentMenu().getId(), idBefore);
+
+        deleterEJB.deleteEntityById(Menu.class, idBefore);
+
+        assertNull(menuEJB.getCurrentMenu());
 
     }
 

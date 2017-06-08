@@ -52,20 +52,19 @@ public class MenuEJB implements Serializable {
         return menu.getId();
     }
 
-    public Menu getCurrentMenu() throws NoResultException {
+    public Menu getCurrentMenu() {
         Menu menu;
         TypedQuery<Menu> query = em.createQuery("SELECT distinct m FROM Menu m WHERE m.date = '" + LocalDate.now() + "'", Menu.class );
-        if (query.getSingleResult() != null) {
-            return query.getSingleResult();
+        if ((menu = query.getResultList().stream().findFirst().orElse(null)) != null) {
+            return menu;
         } else if ((menu = getClosestFutureMenu(LocalDate.now())) != null) {
             return menu;
-        } else if ((menu = getClosestPastMenu(LocalDate.now())) != null) {
-            return menu;
+        } else {
+            return getClosestPastMenu(LocalDate.now());
         }
         //Get the "current" menu. This is defined as: if there is a menu for today, get that.
         // If not, look at the closest menu in the future.
         // If none in the future exists, get the closest in the past.
-        return null;
     }
 
     public Menu getClosestFutureMenu(LocalDate localDate) {
@@ -75,7 +74,7 @@ public class MenuEJB implements Serializable {
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
-    public Menu getClosestPastMenu(LocalDate localDate) throws NoResultException {
+    public Menu getClosestPastMenu(LocalDate localDate) {
 
         // Get the closest menu in the past before a given date. TODO Make sure no SQL injection!
         TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date < '" + localDate + "' ORDER BY m.date DESC ", Menu.class );

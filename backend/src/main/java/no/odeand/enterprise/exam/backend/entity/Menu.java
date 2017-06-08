@@ -29,6 +29,13 @@ public class Menu {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "isInMenus")
     private List<Dish> dishesInMenu;
 
+    @PreRemove
+    private void removeDishesFromMenu() {
+        for (Dish dish : dishesInMenu) {
+            dish.getIsInMenus().remove(this);
+        }
+    }
+
     public Menu() {}
 
     public Long getId() {
