@@ -20,18 +20,24 @@
             <h:inputText value="#{menuController.formDate}" id="createDate"/>
             <h:commandButton value="Create" action="#{menuController.createNewMenu()}" id="createButton"/>
 
-            <h:dataTable value="#{dishList}" var="dish" border="1" id="dishTable">
+            <c:if test="#{dishList.size() != 0}">
 
-                <h:column>
-                    <f:facet name="header">Name</f:facet>
-                    <h:outputText value="#{dish.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Include</f:facet>
-                    <h:selectManyCheckbox/>
-                </h:column>
+                <h:dataTable value="#{dishList}" var="dish" border="1" id="dishTable">
 
-            </h:dataTable>
+                    <h:column>
+                        <f:facet name="header">Name</f:facet>
+                        <h:outputText value="#{dish.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Include</f:facet>
+                        <h:selectBooleanCheckbox
+                                value="#{menuController.checkMap[dish.id]}"
+                                />
+                    </h:column>
+
+                </h:dataTable>
+
+            </c:if>
 
         </h:form>
 

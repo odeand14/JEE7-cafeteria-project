@@ -22,11 +22,8 @@ public class Menu {
     @Column(unique = true)
     private LocalDate date;
 
-    //TODO reverse owning?
-
-
     @NotEmpty
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "isInMenus")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE}, mappedBy = "isInMenus")
     private List<Dish> dishesInMenu;
 
     @PreRemove

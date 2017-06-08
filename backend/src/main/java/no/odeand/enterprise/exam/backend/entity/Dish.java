@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO remove serialize?
 @Entity
 public class Dish implements Serializable {
 

@@ -6,38 +6,71 @@ import no.odeand.enterprise.exam.backend.ejb.MenuEJB;
 import no.odeand.enterprise.exam.backend.entity.Dish;
 import no.odeand.enterprise.exam.backend.entity.Menu;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 @Named
 @SessionScoped
 public class MenuController implements Serializable {
 
+    private Map<Long, Boolean> checkMap;
+    private List<Dish> menuDishes;
+
     @EJB
     private MenuEJB menuEJB;
 
-    private LocalDate formDate;
+    @Inject
+    private DishController dishController;
 
-    private List<Dish> menuDishes;
+    private String formDate;
+
+    @PostConstruct
+    public void init(){
+        menuDishes = new ArrayList<>();
+        checkMap = new ConcurrentHashMap<>();
+    }
 
     public void createNewMenu() {
-        menuEJB.createMenu(formDate, menuDishes);
+
+        menuDishes.addAll(dishController.getAllDishes().stream().filter(item -> checkMap.get(item.getId())).collect(Collectors.toList()));
+        menuEJB.createMenu(LocalDate.parse(formDate), menuDishes);
+        checkMap.clear();
+        menuDishes.clear();
+    }
+
+
+    public void removeFromList(Dish d) {
+        menuDishes.remove(d);
+    }
+
+    public Menu getMenuOfTheWeek() {
+        return menuEJB.getCurrentMenu();
     }
 
     public List<Menu> getAllMenus() {
         return menuEJB.getAllMenus();
     }
 
-    public LocalDate getFormDate() {
+    public String getFormDate() {
         return formDate;
     }
 
-    public void setFormDate(LocalDate formDate) {
+    public void setFormDate(String formDate) {
         this.formDate = formDate;
+    }
+
+    public Map<Long, Boolean> getCheckMap() {
+        return checkMap;
     }
 
 }

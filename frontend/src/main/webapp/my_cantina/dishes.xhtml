@@ -22,6 +22,8 @@
             </h:commandButton>
         </h:form>
 
+        <c:if test="#{dishList.size() != 0}">
+
         <h:dataTable value="#{dishList}" var="dish" border="1" id="dishTable">
 
             <h:column>
@@ -35,6 +37,7 @@
 
         </h:dataTable>
 
+        </c:if>
 
     </ui:define>
 
