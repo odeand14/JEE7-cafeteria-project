@@ -9,7 +9,6 @@
 
 <ui:composition template="layout.xhtml">
 
-    <!--TODO Frontpage title-->
     <ui:define name="title">MyCantina Home Page</ui:define>
 
     <ui:define name="content">
@@ -30,7 +29,7 @@
 
                 <c:set value="#{menuController.menuOfTheWeek}" var="menu" id="menuOfWeek"/>
 
-                <h2>Menu for #{menu.date}</h2>
+                <h2 id="currentMenuDate">Menu for #{menu.date}</h2>
 
                 <h:dataTable value="#{menu.dishesInMenu}" var="dish" border="1" id="dishInMenuTable">
 

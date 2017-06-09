@@ -4,6 +4,7 @@ package no.odeand.enterprise.exam.frontend;
 
 import no.odeand.enterprise.exam.frontend.po.HomePageObject;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,7 +14,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 public class WebTestBase {
 
@@ -89,49 +92,26 @@ public class WebTestBase {
     }
 
 
-    protected static String getUniqueId() {
-        return "foo" + counter.incrementAndGet();
+    protected static String getUniqueText() {
+        return "Crunchy numbers! " + counter.incrementAndGet();
     }
 
     protected static String getUniqueTitle() {
-        return "A title: " + counter.incrementAndGet();
+        return "Numberfood" + counter.incrementAndGet();
     }
 
-//TODO Fix correct HomePageObject methods
-//    protected static HomePageObject createAndLogNewUser(String userId){
-//        return createAndLogNewUser(userId, "aName", "aSurname");
-//    }
-//
-//    protected static HomePageObject createAndLogNewUser(String userId, String name, String surname) {
+    @Before
+    public void startFromInitialPage() {
+
+        assumeTrue(JBossUtil.isJBossUpAndRunning());
+
+        home = new HomePageObject(getDriver());
+        home.toStartingPage();
 //        home.logout();
-//        LoginPageObject login = home.toLogin();
-//        CreateUserPageObject create = login.clickCreateNewUser();
-//        create.createUser(userId, "foo", "foo", name, "", surname);
-//        assertTrue(home.isLoggedIn(userId));
-//        return home;
-//    }
-//
-//
-//
-//    protected static void loginExistingUser(String userId) {
-//        home.logout();
-//        LoginPageObject login = home.toLogin();
-//        login.clickLogin(userId, "foo");
-//        assertTrue(home.isLoggedIn(userId));
-//    }
-//
-//
-//    @Before
-//    public void startFromInitialPage() {
-//
-//        assumeTrue(JBossUtil.isJBossUpAndRunning());
-//
-//        home = new HomePageObject(getDriver());
-//        home.toStartingPage();
-//        home.logout();
-//        assertTrue(home.isOnPage());
-//        assertFalse(home.isLoggedIn());
-//    }
+        assertTrue(home.isOnPage());
+    }
+
+
 
     @AfterClass
     public static void tearDown() {

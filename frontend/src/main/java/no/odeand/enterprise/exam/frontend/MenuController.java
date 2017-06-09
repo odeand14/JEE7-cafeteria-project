@@ -41,17 +41,12 @@ public class MenuController implements Serializable {
     }
 
     public void createNewMenu() {
-
         menuDishes.addAll(dishController.getAllDishes().stream().filter(item -> checkMap.get(item.getId())).collect(Collectors.toList()));
         menuEJB.createMenu(LocalDate.parse(formDate), menuDishes);
         checkMap.clear();
         menuDishes.clear();
     }
 
-
-    public void removeFromList(Dish d) {
-        menuDishes.remove(d);
-    }
 
     public Menu getMenuOfTheWeek() {
         return menuEJB.getCurrentMenu();

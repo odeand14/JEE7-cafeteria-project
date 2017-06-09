@@ -42,7 +42,6 @@ public abstract class EJBTestBase {
     @Before
     @After
     public void emptyDatabase(){
-        //deleterEJB.deleteEntities(Post.class);// doesn't work due to @ElementCollection
         dishEJB.getAllDishes().stream().forEach(d ->
                 deleterEJB.deleteEntityById(Dish.class, d.getId()));
 

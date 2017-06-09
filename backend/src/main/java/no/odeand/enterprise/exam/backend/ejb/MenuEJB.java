@@ -20,21 +20,9 @@ public class MenuEJB implements Serializable {
 
     private static final String dishFetch = "SELECT DISTINCT m FROM Menu m INNER JOIN m.dishesInMenu dishes";
 
-
     @PersistenceContext
     private EntityManager em;
 
-//    public void addDish(long menuId, Long dishId){
-//        Dish dish = em.find(Dish.class, dishId);
-//        Menu menu = em.find(Menu.class, menuId);
-//
-//        if(menu.getDishesInMenu().stream().anyMatch(d -> d.getId().equals(dishId))){
-//            return;
-//        }
-//
-//        menu.getDishesInMenu().add(dish);
-//        dish.getIsInMenus().add(menu);
-//    }
 
     public Long createMenu(@NotNull LocalDate localDate, @NotEmpty List<Dish> dishes) {
 
@@ -62,9 +50,6 @@ public class MenuEJB implements Serializable {
         } else {
             return getClosestPastMenu(LocalDate.now());
         }
-        //Get the "current" menu. This is defined as: if there is a menu for today, get that.
-        // If not, look at the closest menu in the future.
-        // If none in the future exists, get the closest in the past.
     }
 
     public Menu getClosestFutureMenu(LocalDate localDate) {

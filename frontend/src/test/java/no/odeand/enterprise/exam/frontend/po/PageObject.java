@@ -20,23 +20,22 @@ public abstract class PageObject {
 
     public abstract boolean isOnPage();
 
-    //TODO set homepage object
-//    public HomePageObject toHomePage(){
-//        WebElement element = driver.findElement(By.id("homeLink"));
-//        element.click();
-//        waitForPageToLoad();
-//
-//        return new HomePageObject(driver);
-//    }
+    public HomePageObject toHomePage(){
+        WebElement element = driver.findElement(By.id("homeLink"));
+        element.click();
+        waitForPageToLoad();
 
-    public void logout(){
-
-        List<WebElement> logout = driver.findElements(By.id("logoutForm:logout"));
-        if(! logout.isEmpty()){
-            logout.get(0).click();
-            waitForPageToLoad();
-        }
+        return new HomePageObject(driver);
     }
+
+//    public void logout(){
+//
+//        List<WebElement> logout = driver.findElements(By.id("logoutForm:logout"));
+//        if(! logout.isEmpty()){
+//            logout.get(0).click();
+//            waitForPageToLoad();
+//        }
+//    }
 
     public String getText(String id){
         return driver.findElement(By.id(id)).getText();
