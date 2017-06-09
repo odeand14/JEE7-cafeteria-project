@@ -53,14 +53,14 @@ public class MenuEJB implements Serializable {
     }
 
     public Menu getClosestFutureMenu(LocalDate localDate) {
-
+        if (localDate == null) return null;
         //Get the closest menu in the future after a given date TODO Make sure no SQL injection!
         TypedQuery<Menu> query = em.createQuery("SELECT distinct m FROM Menu m WHERE m.date > '" + localDate + "' ORDER BY m.date ASC ", Menu.class);
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
     public Menu getClosestPastMenu(LocalDate localDate) {
-
+        if (localDate == null) return null;
         // Get the closest menu in the past before a given date. TODO Make sure no SQL injection!
         TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date < '" + localDate + "' ORDER BY m.date DESC ", Menu.class );
 

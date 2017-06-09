@@ -25,6 +25,10 @@ public class MenuController implements Serializable {
 
     private Map<Long, Boolean> checkMap;
     private List<Dish> menuDishes;
+    private LocalDate currentDate;
+    private LocalDate nextDate;
+    private LocalDate previousDate;
+    private Menu menu;
 
     @EJB
     private MenuEJB menuEJB;
@@ -36,6 +40,10 @@ public class MenuController implements Serializable {
 
     @PostConstruct
     public void init(){
+        menu = null;
+        currentDate = null;
+        nextDate = null;
+        previousDate = null;
         menuDishes = new ArrayList<>();
         checkMap = new ConcurrentHashMap<>();
     }
@@ -43,10 +51,29 @@ public class MenuController implements Serializable {
     public void createNewMenu() {
         menuDishes.addAll(dishController.getAllDishes().stream().filter(item -> checkMap.get(item.getId())).collect(Collectors.toList()));
         menuEJB.createMenu(LocalDate.parse(formDate), menuDishes);
+        setMenus();
         checkMap.clear();
         menuDishes.clear();
     }
 
+    private void setMenus() {
+//        menu = menuEJB.getMenu(id);
+        currentDate = menuEJB.getCurrentMenu().getDate();
+        if (menuEJB.getClosestPastMenu(currentDate) == null) {
+            previousDate = null;
+        } else {
+            previousDate = menuEJB.getClosestPastMenu(currentDate).getDate();
+        }
+        if (menuEJB.getClosestFutureMenu(currentDate) == null) {
+            nextDate = null;
+        } else {
+            nextDate = menuEJB.getClosestFutureMenu(currentDate).getDate();
+        }
+    }
+
+    public void getPressedMenu(LocalDate date) {
+
+    }
 
     public Menu getMenuOfTheWeek() {
         return menuEJB.getCurrentMenu();
@@ -68,4 +95,27 @@ public class MenuController implements Serializable {
         return checkMap;
     }
 
+    public LocalDate getCurrentDate() {
+        return currentDate;
+    }
+
+    public void setCurrentDate(LocalDate currentDate) {
+        this.currentDate = currentDate;
+    }
+
+    public LocalDate getNextDate() {
+        return nextDate;
+    }
+
+    public void setNextDate(LocalDate nextDate) {
+        this.nextDate = nextDate;
+    }
+
+    public LocalDate getPreviousDate() {
+        return previousDate;
+    }
+
+    public void setPreviousDate(LocalDate previousDate) {
+        this.previousDate = previousDate;
+    }
 }

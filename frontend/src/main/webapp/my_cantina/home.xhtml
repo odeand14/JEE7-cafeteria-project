@@ -19,6 +19,20 @@
         <hr/>
         <c:set var="MenuList" value="#{menuController.allMenus}"/>
 
+
+        <c:if test="#{not empty menuController.currentDate}">
+            <h:link value="Show default" outcome="/my_cantina/home.jsf"  id="currentDishLink"/>
+            <br/>
+        </c:if>
+        <c:if test="#{not empty menuController.nextDate}">
+            <h:link value="Show next(#{menuController.nextDate})" outcome="/my_cantina/home.jsf"  id="nextDishLink"/>
+            <br/>
+        </c:if>
+        <c:if test="#{not empty menuController.previousDate}">
+            <h:link value="Show previous(#{menuController.previousDate})" outcome="/my_cantina/home.jsf"  id="previousDishLink"/>
+        </c:if>
+
+
         <c:choose>
 
             <c:when test="#{MenuList.size() == 0}">
