@@ -5,7 +5,10 @@ import no.odeand.enterprise.exam.backend.entity.Menu;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.ejb.Stateless;
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -54,23 +57,28 @@ public class MenuEJB implements Serializable {
 
     public Menu getClosestFutureMenu(LocalDate localDate) {
         if (localDate == null) return null;
-        //Get the closest menu in the future after a given date TODO Make sure no SQL injection!
-        TypedQuery<Menu> query = em.createQuery("SELECT distinct m FROM Menu m WHERE m.date > '" + localDate + "' ORDER BY m.date ASC ", Menu.class);
-        return query.getResultList().stream().findFirst().orElse(null);
+        //Get the closest menu in the future after a given date TODO Make sure no SQL injection! CHECK
+
+        TypedQuery<Menu> query = em.createQuery("SELECT distinct m FROM Menu m WHERE m.date > :date ORDER BY m.date ASC ", Menu.class);
+
+        return query.setParameter("date", localDate).getResultList().stream().findFirst().orElse(null);
     }
 
     public Menu getClosestPastMenu(LocalDate localDate) {
         if (localDate == null) return null;
-        // Get the closest menu in the past before a given date. TODO Make sure no SQL injection!
-        TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date < '" + localDate + "' ORDER BY m.date DESC ", Menu.class );
+        // Get the closest menu in the past before a given date. TODO Make sure no SQL injection! CHECK
 
-        return query.getResultList().stream().findFirst().orElse(null);
+        TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date < :date ORDER BY m.date DESC ", Menu.class );
+
+        return query.setParameter("date", localDate).getResultList().stream().findFirst().orElse(null);
     }
 
     public Menu getMenuByDate(LocalDate date) {
         if (date == null) return null;
-        TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date = '" + date + "'", Menu.class );
-        return query.getSingleResult();
+
+        TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date = :date", Menu.class );
+
+        return query.setParameter("date", date).getSingleResult();
     }
 
     public Menu getMenu(Long id) {
