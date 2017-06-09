@@ -8,8 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public abstract class PageObject {
 
     protected final WebDriver driver;
@@ -28,15 +26,6 @@ public abstract class PageObject {
         return new HomePageObject(driver);
     }
 
-//    public void logout(){
-//
-//        List<WebElement> logout = driver.findElements(By.id("logoutForm:logout"));
-//        if(! logout.isEmpty()){
-//            logout.get(0).click();
-//            waitForPageToLoad();
-//        }
-//    }
-
     public String getText(String id){
         return driver.findElement(By.id(id)).getText();
     }
@@ -45,19 +34,6 @@ public abstract class PageObject {
         WebElement element = driver.findElement(By.id(id));
         element.clear();
         element.sendKeys(text);
-    }
-
-    public boolean isLoggedIn(){
-        List<WebElement> logout = driver.findElements(By.id("logoutForm:logout"));
-        return !logout.isEmpty();
-    }
-
-    public boolean isLoggedIn(String user){
-        if(!isLoggedIn()){
-            return false;
-        }
-
-        return driver.findElement(By.id("welcomeMessage")).getText().contains(user);
     }
 
     protected Boolean waitForPageToLoad() {

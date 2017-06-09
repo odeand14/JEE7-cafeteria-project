@@ -57,13 +57,6 @@ public class WebTestBase {
 
     private static WebDriver getChromeDriver() {
 
-        /*
-            Need to have Chrome (eg version 53.x) and the Chrome Driver (eg 2.24),
-            whose executable should be saved directly under your home directory
-
-            see https://sites.google.com/a/chromium.org/chromedriver/getting-started
-         */
-
         setupDriverExecutable("chromedriver", "webdriver.chrome.driver");
 
         return new ChromeDriver();
@@ -74,11 +67,6 @@ public class WebTestBase {
 
         driver = getChromeDriver();
 
-        /*
-            When the integration tests in this class are run, it might be
-            that WildFly is not ready yet, although it was started. So
-            we need to wait till it is ready.
-         */
         for (int i = 0; i < 30; i++) {
             boolean ready = JBossUtil.isJBossUpAndRunning();
             if (!ready) {
@@ -107,7 +95,6 @@ public class WebTestBase {
 
         home = new HomePageObject(getDriver());
         home.toStartingPage();
-//        home.logout();
         assertTrue(home.isOnPage());
     }
 

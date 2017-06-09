@@ -17,7 +17,6 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class MenuEJBTest extends EJBTestBase{
 
-    //Todo write tests
 
     @Test(expected = EJBException.class)
     public void testCreateMenuWithNoDish() {
@@ -29,25 +28,6 @@ public class MenuEJBTest extends EJBTestBase{
 
     }
 
-//TODO Move down
-
-    @Test
-    public void testCreateMenuWithDish() {
-        LocalDate date = LocalDate.now();
-
-        assertEquals(0, menuEJB.getAllMenus().size());
-
-        List<Dish> dishes = createDishList();
-
-        Long menuID = menuEJB.createMenu(date, dishes);
-
-        assertEquals(1, menuEJB.getAllMenus().size());
-
-        Menu menu = menuEJB.getMenu(menuID);
-
-        assertTrue(menu.getDishesInMenu().size() == 3);
-
-    }
 
     @Test
     public void testGetCurrentMenu() {
@@ -81,7 +61,7 @@ public class MenuEJBTest extends EJBTestBase{
 
     }
 
-
+    @Test
     public void testGetAbsentPreviousMenu() {
         assertEquals(0, menuEJB.getAllMenus().size());
 
@@ -167,5 +147,22 @@ public class MenuEJBTest extends EJBTestBase{
 
     }
 
+    @Test
+    public void testCreateMenuWithDish() {
+        LocalDate date = LocalDate.now();
+
+        assertEquals(0, menuEJB.getAllMenus().size());
+
+        List<Dish> dishes = createDishList();
+
+        Long menuID = menuEJB.createMenu(date, dishes);
+
+        assertEquals(1, menuEJB.getAllMenus().size());
+
+        Menu menu = menuEJB.getMenu(menuID);
+
+        assertTrue(menu.getDishesInMenu().size() == 3);
+
+    }
 
 }

@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 @RunWith(Arquillian.class)
 public class DishEJBTest extends EJBTestBase{
 
-    //TODO Write tests
 
     @Test
     public void testCreateDish() {

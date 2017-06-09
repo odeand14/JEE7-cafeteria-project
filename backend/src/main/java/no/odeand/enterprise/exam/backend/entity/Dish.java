@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO remove serialize?
 @Entity
 public class Dish implements Serializable {
 
@@ -27,10 +26,10 @@ public class Dish implements Serializable {
     @Size(min = 1, max = 1024)
     private String description;
 
-    //TODO reverse owning?
-
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Menu> isInMenus;
+
+
 
     public Long getId() {
         return id;

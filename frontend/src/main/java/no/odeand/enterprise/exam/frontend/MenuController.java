@@ -59,7 +59,6 @@ public class MenuController implements Serializable {
     }
 
     private void setMenus() {
-//        menu = menuEJB.getMenu(id);
         currentDate = menu.getDate();
         if (menuEJB.getClosestPastMenu(currentDate) == null) {
             previousDate = null;
@@ -76,7 +75,6 @@ public class MenuController implements Serializable {
     public void getPressedMenu(LocalDate date) {
         menu = menuEJB.getMenuByDate(date);
         setMenus();
-//        return "/my_cantina/home.jsf";
     }
 
     public void getMenuOfTheWeek() {

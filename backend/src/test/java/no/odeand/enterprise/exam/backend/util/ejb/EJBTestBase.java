@@ -12,7 +12,6 @@ import org.junit.After;
 import org.junit.Before;
 
 import javax.ejb.EJB;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,6 @@ public abstract class EJBTestBase {
     @EJB
     protected MenuEJB menuEJB;
 
-
     @EJB
     protected DeleterEJB deleterEJB;
 
@@ -54,14 +52,6 @@ public abstract class EJBTestBase {
         deleterEJB.deleteEntities(Menu.class);
     }
 
-    protected boolean createDish() {
-        return dishEJB.createDish("Food", "good food") > 0;
-    }
-
-    //TODO fix this
-    protected boolean createMenu(LocalDate date) {
-        return menuEJB.createMenu(date, null) > 1;
-    }
 
     protected List<Dish> createDishList() {
 

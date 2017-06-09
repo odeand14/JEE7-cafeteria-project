@@ -32,7 +32,7 @@ public class DishController implements Serializable {
         return dishEJB.getAllDishes();
     }
 
-    public void clear() {
+    private void clear() {
         setFormName(null);
         setFormText(null);
     }

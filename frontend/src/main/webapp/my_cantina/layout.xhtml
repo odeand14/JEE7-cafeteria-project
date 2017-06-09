@@ -3,7 +3,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 >
 
 
@@ -22,19 +21,6 @@
     <h:link value="Home" outcome="/my_cantina/home.jsf"  id="homeLink"/>
 
     <br />
-
-    <!--<c:choose>-->
-        <!--<c:when test="#{loggingController.loggedIn}">-->
-            <!--<h:outputText value="Hi #{loggingController.registeredUser}!  " id="welcomeMessage"/>-->
-            <!--<h:form id="logoutForm">-->
-                <!--<h:commandButton value="Log Out" action="#{loggingController.logOut}" id="logout" />-->
-            <!--</h:form>-->
-        <!--</c:when>-->
-        <!--<c:otherwise>-->
-            <!--<h:outputText value="Not logged in  "/>-->
-            <!--<h:button value="Log In" outcome="login.xhtml" id="login"/>-->
-        <!--</c:otherwise>-->
-    <!--</c:choose>-->
 
     <h1>
         <ui:insert name="title">Default title</ui:insert>

@@ -58,7 +58,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Following 2 dependencies are important to get coverage with Arquillian -->
         <dependency>
             <groupId>org.jboss.arquillian.extension</groupId>
             <artifactId>arquillian-jacoco</artifactId>

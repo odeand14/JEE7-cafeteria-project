@@ -6,7 +6,6 @@
     <display-name>My Cantina</display-name>
 
     <welcome-file-list>
-        <!-- TODO Frontpage -->
         <welcome-file>my_cantina/home.jsf</welcome-file>
     </welcome-file-list>
 
