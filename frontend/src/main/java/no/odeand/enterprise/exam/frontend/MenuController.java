@@ -55,6 +55,7 @@ public class MenuController implements Serializable {
         setMenus();
         checkMap.clear();
         menuDishes.clear();
+        setFormDate(null);
     }
 
     private void setMenus() {

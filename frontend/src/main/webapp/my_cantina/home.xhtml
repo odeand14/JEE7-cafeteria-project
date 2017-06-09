@@ -28,7 +28,8 @@
         </c:if>
         <c:if test="#{not empty menuController.nextDate}">
             <h:form>
-                <h:commandLink value="Show next(#{menuController.nextDate})" action="#{menuController.getPressedMenu(menuController.nextDate)}" id="nextDishLink"/>
+                <h:commandLink value="Show next(#{menuController.nextDate})" action="#{menuController.getPressedMenu(menuController.nextDate)}" id="nextDishLink">
+                </h:commandLink>
             </h:form>
             <br/>
         </c:if>

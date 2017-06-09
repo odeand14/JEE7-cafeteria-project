@@ -23,7 +23,8 @@ public class DishesPageObject extends PageObject {
     public boolean isTitleTaken(String title) {
         List<WebElement> elements = driver.findElements(
                 By.xpath("//table[@id='dishTable']//tbody//tr/td[contains(text(), '"+ title +"')]"));
-        return elements.isEmpty();
+
+        return ! elements.isEmpty();
     }
 
     public void createDish(String name, String text) {
@@ -41,9 +42,4 @@ public class DishesPageObject extends PageObject {
         return elements.isEmpty();
     }
 
-    public void goToMainPage() {
-        WebElement link = driver.findElement(By.id("homeLink"));
-        link.click();
-        waitForPageToLoad();
-    }
 }

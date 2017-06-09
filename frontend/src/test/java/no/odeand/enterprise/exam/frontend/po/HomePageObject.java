@@ -41,16 +41,15 @@ public class HomePageObject extends PageObject {
         return elements.size();
     }
 
-    public boolean isCorrectDishesDisplayed(int numberOfElements, List<String> dishNames) {
-        for (int i = 0; i < numberOfElements; i++) {
-            WebElement element = driver.findElement(
-                    By.xpath("//span[@id='dishInMenuTable:"+ i +":dishName']"));
-
-                if (!dishNames.contains(element.getText())) return false;
+    public boolean clickOnLink(String link) {
+        WebElement element = driver.findElement(By.xpath("//*[contains(@id, '"+ link +"')]"));
+        if (element != null) {
+            element.click();
+            waitForPageToLoad();
+            return true;
         }
-        return true;
+        return false;
     }
-
 
     public DishesPageObject toDishes() {
         WebElement link = driver.findElement(By.id("dishesLink"));
