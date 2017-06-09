@@ -21,7 +21,6 @@ public class DishEJB implements Serializable {
 
     public Long createDish(@NotNull String name, @NotNull String description) {
 
-        //Create a dish TODO Make sure no SQL injection!
         Dish dish = new Dish();
         dish.setName(name);
         dish.setDescription(description);

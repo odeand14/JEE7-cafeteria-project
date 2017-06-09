@@ -21,15 +21,11 @@ public class MenuEJB implements Serializable {
 
     public MenuEJB() {}
 
-    private static final String dishFetch = "SELECT DISTINCT m FROM Menu m INNER JOIN m.dishesInMenu dishes";
-
     @PersistenceContext
     private EntityManager em;
 
 
     public Long createMenu(@NotNull LocalDate localDate, @NotEmpty List<Dish> dishes) {
-
-        //Create a menu TODO Make sure no SQL injection!
 
         Menu menu = new Menu();
         menu.setDate(localDate);
@@ -57,7 +53,6 @@ public class MenuEJB implements Serializable {
 
     public Menu getClosestFutureMenu(LocalDate localDate) {
         if (localDate == null) return null;
-        //Get the closest menu in the future after a given date TODO Make sure no SQL injection! CHECK
 
         TypedQuery<Menu> query = em.createQuery("SELECT distinct m FROM Menu m WHERE m.date > :date ORDER BY m.date ASC ", Menu.class);
 
@@ -66,7 +61,6 @@ public class MenuEJB implements Serializable {
 
     public Menu getClosestPastMenu(LocalDate localDate) {
         if (localDate == null) return null;
-        // Get the closest menu in the past before a given date. TODO Make sure no SQL injection! CHECK
 
         TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date < :date ORDER BY m.date DESC ", Menu.class );
 
@@ -82,8 +76,6 @@ public class MenuEJB implements Serializable {
     }
 
     public Menu getMenu(Long id) {
-
-        //TODO Make sure no SQL injection!
 
         TypedQuery<Menu> query = em.createQuery(
                 "select distinct m from Menu m WHERE m.id=?1", Menu.class);
