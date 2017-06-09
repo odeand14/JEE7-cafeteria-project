@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
 import java.util.Objects;
 
 // Created by Andreas Ødegaard on 05.06.2017.
@@ -32,6 +33,24 @@ public class HomePageObject extends PageObject {
                 By.id("currentMenuDate"));
         return Objects.equals(element.getText(), "Menu for " + date);
     }
+
+    public int getNumberOfDishesInDisplayedMenu() {
+        List<WebElement> elements = driver.findElements(
+                By.xpath("//table[@id='dishInMenuTable']//tbody//tr"));
+
+        return elements.size();
+    }
+
+    public boolean isCorrectDishesDisplayed(int numberOfElements, List<String> dishNames) {
+        for (int i = 0; i < numberOfElements; i++) {
+            WebElement element = driver.findElement(
+                    By.xpath("//span[@id='dishInMenuTable:"+ i +":dishName']"));
+
+                if (!dishNames.contains(element.getText())) return false;
+        }
+        return true;
+    }
+
 
     public DishesPageObject toDishes() {
         WebElement link = driver.findElement(By.id("dishesLink"));

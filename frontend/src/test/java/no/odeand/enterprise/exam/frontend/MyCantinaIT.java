@@ -85,13 +85,23 @@ public class MyCantinaIT extends WebTestBase {
         assertTrue(hpo.isCorrectDate(date));
         // verify that the date of the displayed menu is correct (ie today)
 
-
+        assertEquals(2, hpo.getNumberOfDishesInDisplayedMenu());
+        List<String> dishes = new ArrayList<>();
+        dishes.add(name1);
+        dishes.add(name3);
+        assertTrue(hpo.isCorrectDishesDisplayed(2, dishes));
         // verify that the 2 selected dishes are displayed in the menu, and only those 2.
 
     }
 
     @Test
     public void testDifferentDates() {
+
+        LocalDate today = LocalDate.now();
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        LocalDate yesterday = LocalDate.now().minusDays(1);
+
+//        home.
 
         // create 3 menus: one for today one for tomorrow and one for yesterday
 
