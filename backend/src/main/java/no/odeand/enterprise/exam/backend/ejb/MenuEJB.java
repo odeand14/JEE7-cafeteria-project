@@ -67,6 +67,12 @@ public class MenuEJB implements Serializable {
         return query.getResultList().stream().findFirst().orElse(null);
     }
 
+    public Menu getMenuByDate(LocalDate date) {
+        if (date == null) return null;
+        TypedQuery<Menu> query = em.createQuery("SELECT m FROM Menu m WHERE m.date = '" + date + "'", Menu.class );
+        return query.getSingleResult();
+    }
+
     public Menu getMenu(Long id) {
 
         //TODO Make sure no SQL injection!

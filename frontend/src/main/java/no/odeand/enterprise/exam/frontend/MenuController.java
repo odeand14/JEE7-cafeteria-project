@@ -51,6 +51,7 @@ public class MenuController implements Serializable {
     public void createNewMenu() {
         menuDishes.addAll(dishController.getAllDishes().stream().filter(item -> checkMap.get(item.getId())).collect(Collectors.toList()));
         menuEJB.createMenu(LocalDate.parse(formDate), menuDishes);
+        menu = menuEJB.getCurrentMenu();
         setMenus();
         checkMap.clear();
         menuDishes.clear();
@@ -58,7 +59,7 @@ public class MenuController implements Serializable {
 
     private void setMenus() {
 //        menu = menuEJB.getMenu(id);
-        currentDate = menuEJB.getCurrentMenu().getDate();
+        currentDate = menu.getDate();
         if (menuEJB.getClosestPastMenu(currentDate) == null) {
             previousDate = null;
         } else {
@@ -72,11 +73,14 @@ public class MenuController implements Serializable {
     }
 
     public void getPressedMenu(LocalDate date) {
-
+        menu = menuEJB.getMenuByDate(date);
+        setMenus();
+//        return "/my_cantina/home.jsf";
     }
 
-    public Menu getMenuOfTheWeek() {
-        return menuEJB.getCurrentMenu();
+    public void getMenuOfTheWeek() {
+        menu = menuEJB.getCurrentMenu();
+        setMenus();
     }
 
     public List<Menu> getAllMenus() {
@@ -117,5 +121,13 @@ public class MenuController implements Serializable {
 
     public void setPreviousDate(LocalDate previousDate) {
         this.previousDate = previousDate;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 }

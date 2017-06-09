@@ -21,15 +21,24 @@
 
 
         <c:if test="#{not empty menuController.currentDate}">
-            <h:link value="Show default" outcome="/my_cantina/home.jsf"  id="currentDishLink"/>
+            <h:form>
+                <h:commandLink value="Show default" action="#{menuController.getMenuOfTheWeek()}" id="currentDishLink"/>
+            </h:form>
+            <!--<h:link value="Show default" outcome="/my_cantina/home.jsf"  id="currentDishLink"/>-->
             <br/>
         </c:if>
         <c:if test="#{not empty menuController.nextDate}">
-            <h:link value="Show next(#{menuController.nextDate})" outcome="/my_cantina/home.jsf"  id="nextDishLink"/>
+            <h:form>
+                <h:commandLink value="Show next(#{menuController.nextDate})" action="#{menuController.getPressedMenu(menuController.nextDate)}" id="nextDishLink"/>
+            </h:form>
+            <!--<h:link value="Show next(#{menuController.nextDate})" outcome="/my_cantina/home.jsf"  id="nextDishLink"/>-->
             <br/>
         </c:if>
         <c:if test="#{not empty menuController.previousDate}">
-            <h:link value="Show previous(#{menuController.previousDate})" outcome="/my_cantina/home.jsf"  id="previousDishLink"/>
+            <h:form>
+                <h:commandLink value="Show previous(#{menuController.previousDate})" action="#{menuController.getPressedMenu(menuController.previousDate)}" id="previousDishLink"/>
+            </h:form>
+            <!--<h:link value="Show previous(#{menuController.previousDate})" outcome="/my_cantina/home.jsf"  id="previousDishLink"/>-->
         </c:if>
 
 
@@ -41,7 +50,7 @@
 
             <c:otherwise>
 
-                <c:set value="#{menuController.menuOfTheWeek}" var="menu" id="menuOfWeek"/>
+                <c:set value="#{menuController.menu}" var="menu" id="menuOfWeek"/>
 
                 <h2 id="currentMenuDate">Menu for #{menu.date}</h2>
 
