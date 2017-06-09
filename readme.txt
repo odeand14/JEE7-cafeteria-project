@@ -7,7 +7,7 @@ The backend and frontend are structured mostly the same packagewise. A source fo
 which again contains each a java and resource folder. And subpackages depending on need.
 
 
-Backend:
+BACKEND:
 The main classes are split into two different packages "ejb" which contains the entity-java-beans
 and "entity" which contains the @Entity classes. The resource folder contains the persistence.xml file
 
@@ -17,7 +17,7 @@ There is allso a EJBtestbase which they both inherit from in order to gain acces
 and other shared values. The DeleterEJB is located in the same parent as the ejb one and contains the Deleter class.
 
 
-Frontend:
+FRONTEND:
 In the main java no.odeand.enterprise.exam.frontend package we have the controllers and under
 main webapp my_cantina the xhtml pages are located, one for each page plus layout.
 WEB-INF contains the usual files web.xml plus jboss-web.xml
@@ -28,12 +28,17 @@ And the tests, testbase and util classes are located one directly under the no.o
 package in test.
 
 
+REPORT:
+In the report folder we get the Java code coverage reports, once all the tests are run.
+Or, at least if we want the full report. It should be 91% coverage on total avg instructions.
+
+
 Usage:
 As required.
 
 "mvn install" from root.
 
-"mvn wildfly:run" tro start wildfly and deploy WAR.
+"mvn wildfly:run" to start wildfly and deploy WAR.
 
 "mvn verify -P selenium" to run tests including selenium tests.
 
