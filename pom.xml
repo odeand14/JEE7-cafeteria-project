@@ -287,3 +287,8 @@
 
 
 </project>
+
+<!--
+This file-setup borrows heavily from Andrea Arcuris Enterprise project:
+https://github.com/arcuri82/testing_security_development_enterprise_systems
+-->

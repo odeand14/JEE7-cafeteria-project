@@ -1,6 +1,5 @@
 Cafeteria Project.
 
-My exam delivery by. Andreas Ødegaard.
 This project consists of Three sub-modules, backend, frontend and report. As specified in the text.
 They all have an individual POM file which inherits from the root.
 The backend and frontend are structured mostly the same packagewise. A source folder with main and test in both,
