@@ -43,12 +43,3 @@ As required.
 "mvn verify -P selenium" to run tests including selenium tests.
 
 
-Comments:
-As you probably can see I have borrowed much from your code,
-most of the structure should be very similar to your examples.
-I had originally intended to build more on top of the regular requirements,
-but as you know. Shit happens, and you are stuck with debugging weird error messages,
-instead of doing what you want. I am not complaining thou, I am sure it will come in handy later on.
-
-I hope the text is brief enough, and I wish you a good vacation!
-

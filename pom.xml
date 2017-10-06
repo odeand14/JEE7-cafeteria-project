@@ -71,25 +71,6 @@
                 <version>1.4.194</version>
                 <scope>provided</scope>
             </dependency>
-            <!-- these are needed when using Hibernate in SE instead of JEE -->
-            <dependency>
-                <groupId>javax.el</groupId>
-                <artifactId>javax.el-api</artifactId>
-                <version>${version.javax.el}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish.web</groupId>
-                <artifactId>javax.el</artifactId>
-                <version>${version.javax.el}</version>
-            </dependency>
-
-            <!-- For EclipseLink -->
-            <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>org.eclipse.persistence.jpa</artifactId>
-                <version>2.6.4</version>
-            </dependency>
-
 
             <!-- test -->
             <dependency>
@@ -132,13 +113,6 @@
                 <artifactId>org.jacoco.core</artifactId>
                 <version>${version.jacoco}</version>
                 <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <!-- embedded JEE GlassFish container -->
-                <groupId>org.glassfish.main.extras</groupId>
-                <artifactId>glassfish-embedded-all</artifactId>
-                <version>4.1.1</version>
             </dependency>
 
 
